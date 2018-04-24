@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "552277392951",
+    "firebase_url": "https://tickets-b2fe0.firebaseio.com",
+    "project_id": "tickets-b2fe0",
+    "storage_bucket": "tickets-b2fe0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552277392951:android:7dde39920bde70e0",
+        "android_client_info": {
+          "package_name": "com.android.tickets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "552277392951-vuup97p4r1n0iqueh7dmib27t8gp6tjl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.tickets",
+            "certificate_hash": "9b000172bfeef985c626f22c5912e0e96a7aa13d"
+          }
+        },
+        {
+          "client_id": "552277392951-q7vrpc33vcuvln5egcjfrhtp8vkssi7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCueTH_m_tnM-ZELuWJda1yHrfPAMmUPa4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "552277392951-q7vrpc33vcuvln5egcjfrhtp8vkssi7v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
