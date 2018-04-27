@@ -3,7 +3,6 @@ package com.android.tickets;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,7 +49,7 @@ public class Add_station extends AppCompatActivity {
      * @param name Name of the new station
      * @param area The are in which the station is (used to calculate price), must be a number
      */
-    private void addStation(String name, String area) {
+    public void addStation(String name, String area) {
 
         if(name.isEmpty() && area.isEmpty()) {
             Toast.makeText(this , "Cannot leave name and area empty!", Toast.LENGTH_LONG).show();
@@ -69,9 +68,11 @@ public class Add_station extends AppCompatActivity {
 
         else {
             stationsDataRef.child(name).setValue(new Station(name, area));
-            editName.setText("");
-            editArea.setText("");
-            Toast.makeText(this, name + " station added", Toast.LENGTH_LONG).show();
+            if(editName != null && editArea != null) {
+                editName.setText("");
+                editArea.setText("");
+                Toast.makeText(this, name + " station added", Toast.LENGTH_LONG).show();
+            }
         }
 
     }

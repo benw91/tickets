@@ -1,20 +1,15 @@
 package com.android.tickets;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -72,7 +67,8 @@ public class StationsAdapter extends RecyclerView.Adapter<StationsAdapter.Statio
     @Override
     public void onBindViewHolder(StationsClickViewHolder holder, final int position) {
         Station st = stationsArray.get(position);
-        final String name = st.getName();
+        String stationName = st.getName();
+        final String name = stationName;
         final String zone = st.getZone();
         holder.stationName.setText(name);
         holder.stationArea.setText(zone);
@@ -120,8 +116,7 @@ public class StationsAdapter extends RecyclerView.Adapter<StationsAdapter.Statio
      */
     public void goToEdit(View v, String stationName, String area) {
         Intent intent = new Intent(v.getContext(), EditStation.class);
-        intent.putExtra("STATION_NAME", stationName);
-        intent.putExtra("STATION_ZONE", area);
+        intent.putExtra("WHOLE_STATION", new Station(stationName, area));
         v.getContext().startActivity(intent);
 
     }

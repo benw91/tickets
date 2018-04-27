@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,10 +17,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class EditStation extends AppCompatActivity {
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -30,7 +25,7 @@ public class EditStation extends AppCompatActivity {
     EditText newNameEdit, newZoneEdit;
     private String oldName, oldZone;
     private Button submitButton;
-
+    Station toEdit;
     /**
      * Grabs the details ofthe station to be edited from an intent sent by the StationAdapter
      * @param savedInstanceState
@@ -39,8 +34,9 @@ public class EditStation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_edit_station);
         Intent intent = getIntent();
-        oldName = intent.getStringExtra("STATION_NAME");
-        oldZone = intent.getStringExtra("STATION_ZONE");
+        toEdit = getIntent().getExtras().getParcelable("WHOLE_STATION");
+        oldName = toEdit.getName();
+        oldZone = toEdit.getZone();
         super.onCreate(savedInstanceState);
         oldZoneView = (TextView)findViewById(R.id.textView_old_zone);
         oldNameView = (TextView)findViewById(R.id.textView_old_name);
@@ -76,7 +72,7 @@ public class EditStation extends AppCompatActivity {
                     //Delete the old station
                     stationsRef.child(oldName).removeValue();
                     //Create a reference to the station we would like to add (the name is the key)
-                    newStationRef.setValue(new Station(newName, newZone));
+                    newStationRef.setValue(toEdit);
                     oldNameView.setText(newName);
                     oldZoneView.setText(newZone);
                 }

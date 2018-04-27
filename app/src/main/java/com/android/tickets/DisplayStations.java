@@ -2,17 +2,10 @@ package com.android.tickets;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,7 +14,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Handles the task that displays the stations from the database
@@ -41,7 +33,6 @@ public class DisplayStations extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final ArrayList<Station> allStations = new ArrayList<Station>();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_stations);
         recycler = (RecyclerView)findViewById(R.id.RecyclerView_allStations);
@@ -52,15 +43,19 @@ public class DisplayStations extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 allStations.clear();
-
                 for (DataSnapshot nameSnapshot : dataSnapshot.getChildren()) {
                     String stationName = nameSnapshot.child("name").getValue(String.class);
+                    //If the name is too long splits it into multiple lines
+                    if(stationName.length()>11) {
+                        stationName = stationName.substring(0, 10) + "-\n" + stationName.substring(11, stationName.length()-1);
+                    }
                     String stationZone = nameSnapshot.child("zone").getValue(String.class);
                     allStations.add(new Station(stationName, stationZone));
                     StationsAdapter stationAdapter = new StationsAdapter(allStations);
                     stationAdapter.setOnEntryClickListener(new StationsAdapter.OnEntryClickListener() {
                         @Override
                         public void onEntryClick(View view, int pos) {
+
 
                         }
                     });
@@ -75,4 +70,5 @@ public class DisplayStations extends AppCompatActivity {
             });
 
     }
+
 }

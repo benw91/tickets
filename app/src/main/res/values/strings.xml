@@ -28,4 +28,36 @@
     <string name="to">To</string>
     <string name="price">Price</string>
 
+    <string-array name="cities">
+        <item>Suphia</item>
+        <item>Eylapving</item>
+        <item>Gutol</item>
+        <item>Ubleland</item>
+        <item>Uazloumond</item>
+        <item>Frane</item>
+        <item>Brento</item>
+        <item>Min</item>
+        <item>Yliozark</item>
+        <item>Coikance</item>
+        <item>Poaxsas</item>
+        <item>Igluerora</item>
+        <item>Clidvine</item>
+        <item>Ametmouth</item>
+        <item>Evlaaton</item>
+        <item>Kance</item>
+        <item>Brouver</item>
+        <item>Flul</item>
+        <item>Yrioclok</item>
+        <item>Esheakhares</item>
+        <item>Altensturmberg</item>
+        <item>Oberlauken</item>
+        <item>Kniepe</item>
+        <item>Eulgem</item>
+        <item>Kunrau</item>
+        <item>Blumenrain</item>
+        <item>Matersen</item>
+        <item>Scherstetten</item>
+        <item>Wullmeringhausen</item>
+        <item>Kirschgoen</item>
+    </string-array>
 </resources>

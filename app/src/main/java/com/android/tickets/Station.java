@@ -3,9 +3,6 @@ package com.android.tickets;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.Comparator;
 
 
@@ -14,13 +11,20 @@ public class Station implements Parcelable {
 
     private String name;
     private String zone;
-
+    private String additionalInfo;
     public Station(String name, String zone) {
         this.name = name;
         this.zone = zone;
+        this.additionalInfo = "";
+    }
+    public Station(String name, String zone, String additionalInfo) {
+        this.name = name;
+        this.zone = zone;
+        this.additionalInfo = additionalInfo;
     }
 
     public Station() {
+        this.additionalInfo  = "";
         this.name = "";
         this.zone = "-1";
     }
@@ -28,6 +32,7 @@ public class Station implements Parcelable {
     protected Station(Parcel in) {
         this.name = in.readString();
         this.zone = in.readString();
+        this.additionalInfo = in.readString();
     }
 
     public static final Creator<Station> CREATOR = new Creator<Station>() {
@@ -51,13 +56,17 @@ public class Station implements Parcelable {
         return true;
     }
 
+    public boolean setInfo(String info) {
+        this.additionalInfo = info;
+        return true;
+    }
     public String getName() {
         return this.name;
     }
     public String getZone() {
         return this.zone;
     }
-
+    public String getAddInfo() {return this.additionalInfo;};
 
     @Override
     public int describeContents() {
@@ -68,6 +77,7 @@ public class Station implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(zone);
+        dest.writeString(additionalInfo);
     }
 
 

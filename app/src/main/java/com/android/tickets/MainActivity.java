@@ -3,7 +3,6 @@ package com.android.tickets;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,16 +19,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
-import static com.android.tickets.Station.COMPARE_BY_NAME;
 import static java.lang.Math.abs;
 
 public class MainActivity extends AppCompatActivity {
     private final ArrayList<Station> allStations = new ArrayList<Station>();     //Save a list of all the stations
-    Button submitButton, displayStationsButton;
+    Button submitButton, displayStationsButton, populateButton;
     TextView price_text_view;
     Spinner sourceSpinner, destSpinner;
 
@@ -47,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         destSpinner = (Spinner) findViewById(R.id.spinner_dest);
         price_text_view = (TextView) findViewById(R.id.textView_price);
         displayStationsButton = (Button) findViewById(R.id.Button_display_stations);
+        //populateButton = (Button)findViewById(R.id.btn_populate);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +59,20 @@ public class MainActivity extends AppCompatActivity {
                 go_to_display_stations(v);
             }
         });
+
+//Used to insert values from a list in the @string list, for debugging purposes
+/*
+        populateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Add_station adder = new Add_station();
+                String[] cityArray = getResources().getStringArray(R.array.cities);
+                for(String city : cityArray) {
+                    adder.addStation(city , Integer.toString(ThreadLocalRandom.current().nextInt(1, 40)));
+                }
+            }
+        });
+*/
         //Populate spinner
         stationsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -67,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 // initialize the List
                 final List<String> stationNames = new ArrayList<String>();
                 for (DataSnapshot nameSnapshot : dataSnapshot.getChildren()) {
-                    String stationName = nameSnapshot.getKey();
+                    String stationName = nameSnapshot.child("name").getValue(String.class);
                     String stationZone = nameSnapshot.child("zone").getValue(String.class);
                     allStations.add(new Station(stationName, stationZone));
                     stationNames.add(stationName);
@@ -137,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void go_to_add_station(View v) {
+
         Intent intent = new Intent(this, Add_station.class);
         startActivity(intent);
     }
@@ -146,8 +160,8 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void go_to_display_stations(View v) {
-
         Intent intent = new Intent(this, DisplayStations.class);
+        intent.putExtra("ALL_STATIONS", allStations);
         startActivity(intent);
 
     }
